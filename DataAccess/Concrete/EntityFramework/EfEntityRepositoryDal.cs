@@ -1,15 +1,16 @@
 ﻿using DataAccess.Abstract;
-using Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Core.DataAccess;
+using Core.Entities;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfEntityRepositoryDal<TEntity> : IEntityRepositoryDal<TEntity>
+    public class EfEntityRepositoryDal<TEntity> : IEntityRepository<TEntity>
         where TEntity: class, IEntity, new() 
     {
         private void NorthwindEntry(TEntity entity,EntityState state)

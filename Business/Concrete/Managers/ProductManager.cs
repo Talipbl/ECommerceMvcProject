@@ -38,6 +38,11 @@ namespace Business.Concrete.Managers
             return _productDal.GetAll(x => x.CategoryId == categoryId);
         }
 
+        public List<Product> GetProductsByUnitPrice(decimal min, decimal max)
+        {
+            return _productDal.GetAll(x => x.UnitPrice >= min && x.UnitPrice <= max);
+        }
+
         public List<Product> GetProductsWithCategoryId(int categoryId)
         {
             throw new NotImplementedException();
