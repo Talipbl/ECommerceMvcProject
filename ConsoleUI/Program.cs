@@ -8,8 +8,8 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //ProductTest();
-            OrderTest();
+            ProductTest();
+            //OrderTest();
         }
 
         private static void OrderTest()
@@ -24,9 +24,19 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductsByUnitPrice(10, 15))
+
+            var result = productManager.GetProductsByUnitPrice(10,15);
+            if (result.Success)
             {
-                Console.WriteLine($"{product.ProductName} - {product.UnitPrice}");
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine($"{product.ProductName} - {product.UnitPrice}");
+                }
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }
