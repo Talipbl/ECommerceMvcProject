@@ -7,10 +7,9 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    interface IProductService
+    public interface IProductService
     {
         IDataResult<List<Product>> GetProducts();
-        IDataResult<List<Product>> GetProductsWithCategoryId(int categoryId);
         IDataResult<List<Product>> GetProductsByCategory(int categoryId);
         IDataResult<List<Product>> GetProductsByUnitPrice(decimal min, decimal max);
         IDataResult<Product> GetProduct(int productId);

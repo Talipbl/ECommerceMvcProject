@@ -12,23 +12,23 @@ namespace Core.DataAccess.EntityFramework
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
-        private void TContextEntry(TEntity entity, EntityState state)
+        private int TContextEntry(TEntity entity, EntityState state)
         {
             using (TContext db = new TContext())
             {
                 db.Entry<TEntity>(entity).State = state;
-                db.SaveChanges();
+                return db.SaveChanges();
             }
         }
 
-        public void Add(TEntity entity)
+        public bool Add(TEntity entity)
         {
-            TContextEntry(entity, EntityState.Added);
+            return (TContextEntry(entity, EntityState.Added)>0?true:false);
         }
 
-        public void Delete(TEntity entity)
+        public bool Delete(TEntity entity)
         {
-            TContextEntry(entity, EntityState.Deleted);
+            return (TContextEntry(entity, EntityState.Deleted)>0?true:false);
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
@@ -47,9 +47,9 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public void Update(TEntity entity)
+        public bool Update(TEntity entity)
         {
-            TContextEntry(entity, EntityState.Modified);
+            return (TContextEntry(entity, EntityState.Modified)>0?true:false);
         }
     }
 }

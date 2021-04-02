@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    interface IOrderService
+    public interface IOrderService
     {
         List<Order> GetOrders();
     }

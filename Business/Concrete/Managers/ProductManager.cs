@@ -22,21 +22,21 @@ namespace Business.Concrete.Managers
             //business codes and rules
             if (product.ProductName.Length < 2)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.Product.NameInvalid);
             }
             _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.Product.Added);
         }
 
         public IResult Delete(int id)
         {
             _productDal.Delete(new Product { ProductID = id });
-            return new SuccessResult(Messages.ProductDeleted);
+            return new SuccessResult(Messages.Product.Deleted);
         }
 
         public IDataResult<Product> GetProduct(int productId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(x => x.ProductID == productId), Messages.ProductListed);
+            return new SuccessDataResult<Product>(_productDal.Get(x => x.ProductID == productId), Messages.Product.Listed);
         }
         public IDataResult<List<Product>> GetProducts()
         {
@@ -44,28 +44,23 @@ namespace Business.Concrete.Managers
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.Product.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetProductsByCategory(int categoryId)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.CategoryId == categoryId), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.CategoryId == categoryId), Messages.Product.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetProductsByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.UnitPrice >= min && x.UnitPrice <= max), Messages.ProductsListed);
-        }
-
-        public IDataResult<List<Product>> GetProductsWithCategoryId(int categoryId)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.UnitPrice >= min && x.UnitPrice <= max), Messages.Product.ProductsListed);
         }
 
         public IResult Update(Product product)
         {
             _productDal.Update(product);
-            return new SuccessResult(Messages.ProductUpdated);
+            return new SuccessResult(Messages.Product.Updated);
         }
     }
 }

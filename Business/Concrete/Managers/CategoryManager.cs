@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
+using Core.Utilities.Results.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,24 +17,32 @@ namespace Business.Concrete.Managers
         {
             _categoryDal = categoryDal;
         }
-        public void Add(Category category)
+        private IResult BaseProccess(bool state,string message)
         {
-            _categoryDal.Add(category);
+            if (state)
+            {
+                return new SuccessResult(message);
+            }
+            return new ErrorResult();
+        }
+        public IResult Add(Category category)
+        {
+            return BaseProccess(_categoryDal.Add(category), Messages.Category.Added);
         }
 
-        public void Delete(int id)
+        public IResult Delete(int id)
         {
-            _categoryDal.Delete(new Category { CategoryID = id });
+            return BaseProccess(_categoryDal.Delete(new Category { CategoryID = id }),Messages.Category.Deleted);
         }
 
-        public List<Category> GetCategories()
+        public IDataResult<List<Category>> GetCategories()
         {
-            return _categoryDal.GetAll();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.Category.Listed);
         }
 
-        public void Update(Category category)
+        public IResult Update(Category category)
         {
-            _categoryDal.Update(category);
+            return BaseProccess(_categoryDal.Update(category), Messages.Category.Updated);
         }
     }
 }
