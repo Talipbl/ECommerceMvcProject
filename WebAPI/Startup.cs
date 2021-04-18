@@ -31,8 +31,8 @@ namespace WebAPI
         {
             services.AddControllers();
             //IoC Container -->
-            services.AddSingleton<IProductService,ProductManager>();
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService,ProductManager>();
+            //services.AddSingleton<IProductDal, EfProductDal>();
             //IoC Container <--
         }
 
