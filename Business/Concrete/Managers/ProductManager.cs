@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -21,14 +22,17 @@ namespace Business.Concrete.Managers
         IProductDal _productDal;
         ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal,ICategoryService categoryService)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService):this(productDal)
+        {
+            _categoryService = categoryService;
+        }
+        public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
-            _categoryService = categoryService;
         }
 
 
-        //[SecuredOperation("admin,editor")]
+        [SecuredOperation("admin,editor")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -72,6 +76,8 @@ namespace Business.Concrete.Managers
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(x => x.UnitPrice >= min && x.UnitPrice <= max), Messages.Product.ProductsListed);
         }
+
+
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
         {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -8,6 +10,14 @@ namespace Business.Constants
     {
 
         public static string MaintenanceTime = "Bakım zamanı";
+        internal static string AuthorizationDenied = "Yetkiniz yok.";
+        internal static string UserRegistered;
+        internal static User UserNotFound;
+        internal static User PasswordError;
+        internal static string SuccessfulLogin;
+        internal static string UserAlreadyExists;
+        internal static string AccessTokenCreated;
+
         public static class Product
         {
             public static string Added = "Ürün eklendi";
